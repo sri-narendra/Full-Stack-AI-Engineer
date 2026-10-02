@@ -1,0 +1,610 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="description" content="Sri Narendra P., 3rd year CSE at LPU. AI full-stack engineer building RAG platforms, web apps and developer tools.">
+<meta name="theme-color" content="#050811">
+<title>Sri Narendra P. | AI Full-Stack Engineer</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            handwriting: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            brand: {
+              dark: '#050811',
+              darker: '#03050a',
+              card: '#0a0f1d',
+              cardBorder: '#141c2e',
+              cyan: '#38bdf8',
+              accent: '#0284c7'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-layout">
+    :root {
+      --bg: #050811;
+      --card: #0a0f1d;
+      --line: rgba(148, 163, 184, .10);
+      --accent: #38bdf8;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+    body {
+      background-color: var(--bg);
+      color: #e8eef7;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+    .chalk-text {
+      font-family: 'Caveat', cursive;
+      color: #cbd5e1;
+      text-shadow: 0 0 2px rgba(255,255,255,.4), 0 0 8px rgba(203, 213, 225, .2);
+      transform: rotate(-3deg);
+    }
+
+    /* Focus: keyboard users get a real target */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    /* Anchor targets clear the sticky header instead of hiding under it */
+    [id] { scroll-margin-top: 72px; }
+
+    /* Card chrome (border was declared but never set, so hover borders never rendered) */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      transition: border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
+    }
+    .card:hover {
+      border-color: rgba(56, 189, 248, .35);
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px -22px rgba(56, 189, 248, .45);
+    }
+
+    /* Live site previews: iframe renders at 1280px, JS scales it to the card */
+    .preview iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1280px;
+      border: 0;
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    /* Nav active state (driven by scroll-spy) */
+    .nav-active { color: var(--accent) !important; font-weight: 600; }
+    .nav-bar { box-shadow: 0 2px 0 0 var(--accent); }
+    .home-underline { transition: opacity .3s var(--ease); }
+
+    /* Reveal on scroll — only armed when JS runs, so content is never trapped invisible */
+    html.js [data-reveal] {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .55s var(--ease), transform .55s var(--ease);
+    }
+    html.js [data-reveal].in { opacity: 1; transform: none; }
+    /* Print and screenshot capture never scroll, so never trap content at opacity 0 */
+    @media print { html.js [data-reveal] { opacity: 1 !important; transform: none !important; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      html.js [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+<script>
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js');
+  }
+</script>
+<script>try{if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light')}catch(e){}</script>
+<style data-purpose="light-theme">
+/* ponytail: class-scoped overrides instead of dark: variants on every node */
+.light{--bg:#f6f7f9;--card:#ffffff;--line:rgba(15,23,42,.12);--accent:#0284c7}
+.light body,.light .bg-\[\#050811\]{background-color:#f6f7f9;color:#1e293b}
+.light header{background-color:rgba(246,247,249,.92);border-color:#e2e8f0}
+.light footer{border-color:#e2e8f0}
+.light .text-white{color:#0f172a}
+.light .text-slate-100{color:#1e293b}
+.light .text-slate-200{color:#334155}
+.light .text-slate-300{color:#475569}
+.light .text-slate-400{color:#64748b}
+.light .text-cyan-400{color:#0284c7}
+.light .text-cyan-300{color:#0369a1}
+.light .text-blue-400{color:#2563eb}
+.light .text-amber-400{color:#d97706}
+.light .hover\:text-white:hover{color:#0f172a}
+.light .hover\:text-slate-100:hover{color:#0f172a}
+.light .hover\:text-cyan-400:hover,.light .hover\:text-cyan-300:hover{color:#0284c7}
+.light #home .text-white,.light #contact .text-white{color:#fff}
+.light #home .text-slate-200,.light #contact .text-slate-200{color:#e8eef7}
+.light #home .text-slate-300,.light #contact .text-slate-300{color:#cbd5e1}
+.light #home .text-slate-400,.light #contact .text-slate-400{color:#94a3b8}
+.light #home .text-cyan-400,.light #contact .text-cyan-400{color:#38bdf8}
+.light #home .hover\:text-white:hover,.light #home .hover\:text-slate-100:hover{color:#fff}
+.light #home .bg-slate-900\/80{background-color:rgba(2,6,23,.7)}
+.light .bg-slate-900:not(.preview,.preview *){background-color:#ffffff}
+.light .bg-slate-800\/80{background-color:#eef2f6}
+.light .bg-slate-800,.light .hover\:bg-slate-800:hover{background-color:#e2e8f0}
+.light .bg-\[\#081021\]{background-color:#ffffff}
+.light .border-blue-900\/30{border-color:#dbe4f0}
+.light .border-slate-800\/60,.light .border-slate-700\/50,.light .border-slate-700\/60,.light .border-slate-800{border-color:#cbd5e1}
+.light .border-slate-900,.light .border-slate-900\/60,.light .border-slate-900\/80{border-color:#e2e8f0}
+.theme-moon{display:none}
+.light .theme-sun{display:none}
+.light .theme-moon{display:inline}
+</style>
+</head>
+<body class="bg-[#050811] text-slate-100 antialiased selection:bg-cyan-500/30 selection:text-cyan-300">
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-[60] focus:top-3 focus:left-3 focus:bg-cyan-400 focus:text-[#04121f] focus:px-4 focus:py-2 focus:rounded-full focus:text-xs focus:font-bold">Skip to content</a>
+<!-- BEGIN: MainHeader -->
+<header class="w-full sticky top-0 z-50 bg-[#050811]/90 backdrop-blur-md border-b border-slate-900/60 px-6 lg:px-12 py-3.5 transition-all"><div class="max-w-[1536px] mx-auto flex items-center justify-between">
+  <!-- Brand Logo -->
+  <a class="flex items-center gap-3 group" href="#home">
+    <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 p-[1.5px] flex items-center justify-center shadow-lg shadow-cyan-950/40">
+      <div class="w-full h-full bg-[#070b16] rounded-[7px] flex items-center justify-center font-extrabold tracking-tighter text-sm text-cyan-400 group-hover:text-white transition-colors">
+        SP
+      </div>
+    </div>
+    <span class="text-base font-bold text-slate-100 tracking-tight">Sri P.</span>
+  </a>
+  <!-- Center Navigation Links -->
+  <nav class="hidden md:flex items-center gap-6 text-[13px] font-medium text-slate-400">
+    <div class="relative py-1">
+      <a class="text-cyan-400 font-semibold transition-colors" href="#home">Home</a>
+      <span class="home-underline absolute bottom-0 left-0 right-0 h-0.5 bg-cyan-400 rounded-full shadow-[0_0_8px_#38bdf8]"></span>
+    </div>
+    <a class="hover:text-slate-100 transition-colors py-1" href="#about">About</a>
+    <a class="hover:text-slate-100 transition-colors py-1" href="#projects">Projects</a>
+    <a class="hover:text-slate-100 transition-colors py-1" href="#skills">Skills</a>
+    <a class="hover:text-slate-100 transition-colors py-1" href="#experience">Experience</a>
+    <a class="hover:text-slate-100 transition-colors py-1" href="#contact">Contact</a>
+  </nav>
+  <!-- Right Utility Actions -->
+  <div class="flex items-center gap-4">
+    <!-- Theme toggle: sun (dark mode) / moon (light mode) -->
+    <button id="themeToggle" aria-label="Toggle theme" class="text-slate-400 hover:text-slate-200 p-1.5 rounded-full transition-colors" type="button">
+      <svg class="theme-sun w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2m0 16v2m10-10h-2M4 10H2m15.364-5.364-1.414 1.414M6.05 17.95l-1.414 1.414m12.728 0-1.414 1.414M6.05 6.05 4.636 4.636" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <svg class="theme-moon w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </button>
+    <!-- "Let's Talk" CTA Button -->
+    <a class="inline-flex items-center gap-1.5 text-xs font-bold px-4 py-2 rounded-full bg-cyan-400 hover:bg-cyan-300 text-[#04121f] shadow-md shadow-cyan-950/50 transition-all hover:scale-[1.03] active:scale-95" href="#contact">
+      <span class="">Let's Talk</span>
+      <svg class="w-3.5 h-3.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </a>
+  </div>
+</div></header>
+<!-- END: MainHeader -->
+<!-- BEGIN: HeroSection -->
+<section class="relative w-full overflow-hidden border-b border-slate-900 flex items-center py-6 lg:py-8" id="home">
+<!-- Hero Background Image & Atmospheric Layers -->
+<div class="absolute inset-0 z-0">
+<img alt="Developer workspace at dusk" class="w-full h-full object-cover object-[center_28%]" decoding="async" fetchpriority="high" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgWH1UdgH2jFqYU3PLjHmtks3045_J2INJcg7-i-71g5HlS6FZT1YHvyrPk_DoPB7ZklVQ2swMsSIYDtnMci2tir0uNUbEqAjHZns9Jjo4hAbntIr3loRPbWVgGAl4LDQP5XBuikJlJDGWOys2nhGhSUspm5g-7vAfbdCbCXoOPzGq6sA4HBChPga1laMSeu2chwwaNQJwPhZxiFJqZJtBf6kpRkeMC0ER1mCnn2DY5DOoDrJtnU8R5w">
+<!-- Soft gradient overlay to enhance readability on left while keeping right visible -->
+<div class="absolute inset-0 bg-gradient-to-r from-[#050811] via-[#050811]/90 via-40% to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-[#050811] via-transparent to-[#050811]/60"></div>
+</div>
+<!-- Main Container -->
+<div class="relative z-10 max-w-[1536px] w-full mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 items-center">
+<!-- Left Hero Text Content -->
+<div class="lg:col-span-7 xl:col-span-6 space-y-3.5 pt-2 pb-2">
+<!-- Role Tag -->
+<div class="inline-flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+<span class="text-[11px] font-bold tracking-[0.2em] text-cyan-400 uppercase">AI Full-Stack Engineer</span>
+</div>
+<!-- Big Headline -->
+<h1 class="text-3xl sm:text-4xl lg:text-[46px] font-extrabold tracking-tight leading-[1.08] text-white">
+          Turning Ideas into <br>
+<span class="text-cyan-400">Real Products.</span>
+</h1>
+<!-- Subtitle Bio -->
+<p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-xl font-normal">
+          3rd year B.Tech CSE at LPU. I build production web apps, AI tools and RAG systems with clean, tested code.
+        </p>
+<!-- CTA Action Buttons -->
+<div class="flex flex-wrap items-center gap-3 pt-1">
+<!-- Primary View Projects -->
+<a class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-[#04121f] font-bold text-xs shadow-lg shadow-cyan-950/50 transition-all hover:scale-[1.03] active:scale-95" href="#projects">
+<span class="">View My Projects</span>
+<svg class="w-3.5 h-3.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+<!-- Secondary Download Resume -->
+<a class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/60 font-medium text-xs backdrop-blur-sm transition-all hover:scale-[1.03] active:scale-95" download href="Sri_Narendra.pdf">
+<svg class="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="">Download Resume</span>
+</a>
+</div>
+<!-- Social Links Row -->
+<div class="flex items-center gap-4 pt-1.5 text-slate-300">
+<!-- GitHub -->
+<a aria-label="GitHub" class="hover:text-cyan-400 transition-colors" href="https://github.com/sri-narendra" rel="noopener noreferrer" target="_blank">
+<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+</svg>
+</a>
+<!-- LinkedIn -->
+<a aria-label="LinkedIn" class="hover:text-cyan-400 transition-colors" href="https://www.linkedin.com/in/sri-narendra-p-2b75291bb/" rel="noopener noreferrer" target="_blank">
+<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+<path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.62 1.62 0 1 0-.01-3.24 1.62 1.62 0 0 0 .01 3.24M7.85 18.5V10.1H5.06v8.4h2.79z"></path>
+</svg>
+</a>
+<!-- Email -->
+<a aria-label="Email" class="hover:text-cyan-400 transition-colors" href="mailto:srinarendraofficial@gmail.com">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true">
+<path d="M3 8l9 6 9-6M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+<!-- Instagram -->
+<a aria-label="Instagram" class="hover:text-cyan-400 transition-colors" href="https://www.instagram.com/sri._.official.student" rel="noopener noreferrer" target="_blank">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true">
+<rect x="3" y="3" width="18" height="18" rx="5"></rect>
+<circle cx="12" cy="12" r="4"></circle>
+<circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"></circle>
+</svg>
+</a>
+</div></div><div class="hidden lg:flex lg:col-span-5 xl:col-span-6 h-full items-start justify-end relative pointer-events-none pr-2"><div class="flex items-start gap-10 mt-6 mr-6"><div class="text-right chalk-text select-none" style="transform: rotate(-4deg);"><div class="text-amber-400 text-lg inline-block -rotate-6 mb-0.5 drop-shadow">👑</div><div class="text-3xl font-bold tracking-wide leading-[1.15] text-slate-200/90" style="font-family: 'Caveat', cursive;">Better<br>Code<br>Bigger<br>Dreams</div></div><div class="text-[11px] font-semibold text-slate-400 space-y-2 select-none tracking-widest text-center"><div class="hover:text-white transition-colors">Build</div><div class="text-slate-600">·</div><div class="hover:text-white transition-colors">Learn</div><div class="text-slate-600">·</div><div class="hover:text-white transition-colors">Improve</div><div class="text-slate-600">·</div><div class="hover:text-white transition-colors">Repeat</div></div></div></div></div></section>
+<!-- END: HeroSection -->
+<!-- BEGIN: MainContentGrid -->
+<main class="max-w-[1536px] mx-auto px-6 lg:px-12 py-10" id="main">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- ================= LEFT COLUMN (approx 74% width) ================= -->
+<div class="lg:col-span-9 space-y-8">
+<!-- Projects Section Header -->
+<div class="flex items-end justify-between border-b border-slate-900 pb-3" id="projects">
+<div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block mb-1">FEATURED PROJECTS</span>
+<h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+              Some Things I've Built
+              <span class="text-cyan-400 font-normal">→</span>
+</h2>
+</div>
+<a class="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition-colors" href="https://github.com/sri-narendra?tab=repositories" rel="noopener noreferrer" target="_blank">
+<span class="">All repos on GitHub</span>
+<svg class="w-3.5 h-3.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+</div>
+<!-- 4-Card Horizontal Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+<!-- Project Card 1: SourceIQ -->
+<div class="card rounded-xl p-3.5 flex flex-col justify-between shadow-md" data-reveal>
+<div>
+<!-- Visual Mockup Container -->
+<div class="preview w-full h-32 rounded-lg bg-slate-900 border border-slate-800 overflow-hidden relative mb-3.5 flex items-center justify-center group">
+<iframe src="https://source-iq-one.vercel.app" title="SourceIQ live site" loading="lazy" class="absolute inset-0 border-0 pointer-events-none"></iframe>
+</div>
+<h3 class="text-sm font-bold text-white mb-1.5">SourceIQ</h3>
+<p class="text-xs text-slate-400 leading-relaxed mb-3">
+                Enterprise RAG platform with pgvector search and page-level citations.
+              </p>
+</div>
+<div>
+<!-- Tech Tag Pills -->
+<div class="flex flex-wrap gap-1.5 mb-3.5">
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">Python</span>
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">FastAPI</span>
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">PostgreSQL</span>
+</div>
+<!-- Footer Link -->
+<div class="flex items-center justify-between pt-2 border-t border-slate-800/60 text-xs">
+<a class="text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1" href="https://github.com/sri-narendra/SourceIQ" rel="noopener noreferrer" target="_blank">
+                  GitHub <span class="">→</span>
+</a>
+<a aria-label="Open SourceIQ on GitHub" class="text-slate-400 hover:text-white p-1" href="https://github.com/sri-narendra/SourceIQ" rel="noopener noreferrer" target="_blank">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
+<path d="M10 8l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</a>
+</div>
+</div>
+</div>
+<!-- Project Card 2: TaskForge -->
+<div class="card rounded-xl p-3.5 flex flex-col justify-between shadow-md" data-reveal>
+<div>
+<!-- Visual Mockup Container -->
+<div class="preview w-full h-32 rounded-lg bg-slate-900 border border-purple-900/30 overflow-hidden relative mb-3.5 flex items-center justify-center">
+<iframe src="https://sri-narendra.github.io/TaskForge" title="TaskForge live site" loading="lazy" class="absolute inset-0 border-0 pointer-events-none"></iframe>
+</div>
+<h3 class="text-sm font-bold text-white mb-1.5">TaskForge</h3>
+<p class="text-xs text-slate-400 leading-relaxed mb-3">
+                Kanban workspace with JWT auth, subtasks and bulk import.
+              </p>
+</div>
+<div>
+<!-- Tech Tag Pills -->
+<div class="flex flex-wrap gap-1.5 mb-3.5">
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">Node.js</span>
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">Express</span>
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">MongoDB</span>
+</div>
+<!-- Footer Link -->
+<div class="flex items-center justify-between pt-2 border-t border-slate-800/60 text-xs">
+<a class="text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1" href="https://github.com/sri-narendra/TaskForge" rel="noopener noreferrer" target="_blank">
+                  GitHub <span class="">→</span>
+</a>
+<a aria-label="Open TaskForge on GitHub" class="text-slate-400 hover:text-white p-1" href="https://github.com/sri-narendra/TaskForge" rel="noopener noreferrer" target="_blank">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
+<path d="M10 8l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</a>
+</div>
+</div>
+</div>
+<!-- Project Card 3: Buddy AI Chat -->
+<div class="card rounded-xl p-3.5 flex flex-col justify-between shadow-md" data-reveal>
+<div>
+<!-- Visual Mockup Container -->
+<div class="preview w-full h-32 rounded-lg bg-slate-900 border border-emerald-900/30 overflow-hidden relative mb-3.5 flex items-center justify-center">
+<iframe src="https://simplebot-phi.vercel.app" title="Buddy AI Chat live site" loading="lazy" class="absolute inset-0 border-0 pointer-events-none"></iframe>
+</div>
+<h3 class="text-sm font-bold text-white mb-1.5">Buddy AI Chat</h3>
+<p class="text-xs text-slate-400 leading-relaxed mb-3">
+                AI chat app with Gemini, serverless API routes and custom prompts.
+              </p>
+</div>
+<div>
+<!-- Tech Tag Pills -->
+<div class="flex flex-wrap gap-1.5 mb-3.5">
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">JavaScript</span>
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">Gemini</span>
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">Vercel</span>
+</div>
+<!-- Footer Link -->
+<div class="flex items-center justify-between pt-2 border-t border-slate-800/60 text-xs">
+<a class="text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1" href="https://github.com/sri-narendra/simplebot" rel="noopener noreferrer" target="_blank">
+                  GitHub <span class="">→</span>
+</a>
+<a aria-label="Open Buddy AI Chat on GitHub" class="text-slate-400 hover:text-white p-1" href="https://github.com/sri-narendra/simplebot" rel="noopener noreferrer" target="_blank">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
+<path d="M10 8l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</a>
+</div>
+</div>
+</div>
+<!-- Project Card 4: Flashoot RAG Bot -->
+<div class="card rounded-xl p-3.5 flex flex-col justify-between shadow-md" data-reveal>
+<div>
+<!-- Visual Mockup Container -->
+<div class="preview w-full h-32 rounded-lg bg-slate-900 border border-amber-900/30 overflow-hidden relative mb-3.5 flex items-center justify-center">
+<iframe src="https://sri-narendra.github.io/aimadebot" title="Flashoot RAG Bot live site" loading="lazy" class="absolute inset-0 border-0 pointer-events-none"></iframe>
+</div>
+<h3 class="text-sm font-bold text-white mb-1.5">Flashoot RAG Bot</h3>
+<p class="text-xs text-slate-400 leading-relaxed mb-3">
+                RAG chatbot with vector search over site content.
+              </p>
+</div>
+<div>
+<!-- Tech Tag Pills -->
+<div class="flex flex-wrap gap-1.5 mb-3.5">
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">Python</span>
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">FastAPI</span>
+<span class="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/50">Qdrant</span>
+</div>
+<!-- Footer Link -->
+<div class="flex items-center justify-between pt-2 border-t border-slate-800/60 text-xs">
+<a class="text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1" href="https://github.com/sri-narendra/aimadebot" rel="noopener noreferrer" target="_blank">
+                  GitHub <span class="">→</span>
+</a>
+<a aria-label="Open Flashoot RAG Bot on GitHub" class="text-slate-400 hover:text-white p-1" href="https://github.com/sri-narendra/aimadebot" rel="noopener noreferrer" target="_blank">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
+<path d="M10 8l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- 3-Box Lower Section (About Mini, Skills Mini, Let's Work Together) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+<!-- Box 1: About Me -->
+<div class="rounded-xl p-5 flex flex-col justify-between" id="about" data-reveal>
+<div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block mb-1">ABOUT ME</span>
+<h3 class="text-base font-bold text-white mb-2.5">A little about me</h3>
+<p class="text-xs text-slate-400 leading-relaxed">
+                3rd year CSE at LPU with a 7.7 CGPA. I build full-stack and AI products, led the technical team at Gravity Organisation, and have solved 300+ coding problems in C, C++, Java and Python.
+              </p>
+</div>
+<div class="pt-5">
+<a class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-slate-200 hover:bg-slate-800 transition-colors bg-slate-800/80" href="https://www.linkedin.com/in/sri-narendra-p-2b75291bb/" rel="noopener noreferrer" target="_blank">
+<span class="">More About Me</span>
+<span class="text-cyan-400">→</span>
+</a>
+</div>
+</div>
+<!-- Box 2: My Skills -->
+<div class="rounded-xl p-5 flex flex-col justify-between" id="skills" data-reveal>
+<div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block mb-1">MY SKILLS</span>
+<h3 class="text-base font-bold text-white mb-3">What I Work With</h3>
+<!-- Badges Wrap -->
+<div class="flex flex-wrap gap-1.5"><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">React</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">Next.js</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">TypeScript</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">Python</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">Java</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">Node.js</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">Express</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">FastAPI</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">PostgreSQL</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">MongoDB</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">pgvector</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">Tailwind CSS</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">Docker</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">AWS</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">Git</span><span class="text-[11px] bg-slate-900 text-slate-300 px-2.5 py-1 rounded-full font-medium">Linux</span></div>
+</div>
+</div>
+<!-- Box 3: Let's Work Together (Hero Graphic Background) -->
+<div class="relative overflow-hidden rounded-xl p-5 flex flex-col justify-between min-h-[220px] shadow-lg group border border-slate-800/60" id="contact" data-reveal><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdN3t5_9N7yiOBBnN4nrCt0RazuMR0ohHC3fov01eOJE0v8byu1VukpNODYfYTjrxQa8NyK9hPslhuQl_OiCv5pHJ_Pzp0y1QmCtBNeIJe0ci_NO6hhJvBI-U8CLJ-BGCHXMYXDVa0vYmTc2s4VlhXzbSfc1Oy_gDB3q44_cdq_YkuKbKyZh2CUv2yRH1oV_rLy1jTO-uWXX39a9pzft0Fn3ErNZQAsCWXfxnQZSHGp89D-s7Qc4kaJg" alt="Low-poly mountain backdrop" class="absolute inset-0 w-full h-full object-cover object-center z-0" loading="lazy" decoding="async"><div class="absolute inset-0 bg-gradient-to-r from-[#050811]/95 via-[#050811]/80 to-transparent z-0"></div><div class="relative z-10"><span class="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block mb-1">LET'S WORK TOGETHER</span><h3 class="text-base font-bold text-white mb-2">Have a project in mind?</h3><p class="text-xs text-slate-300 leading-relaxed max-w-[280px]">Open to internships, collaborations and interesting ideas.</p></div><div class="relative z-10 pt-5"><a class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-400 hover:bg-cyan-300 text-[#04121f] font-bold text-xs shadow-md shadow-cyan-950 transition-all hover:scale-105 active:scale-95" href="mailto:srinarendraofficial@gmail.com"><span class="">Let's Talk</span><span class="font-bold">→</span></a></div></div>
+</div>
+</div>
+<!-- ================= RIGHT COLUMN (approx 26% width) ================= -->
+<div class="lg:col-span-3 space-y-6">
+<!-- Tech Stack Section -->
+<div class="" data-reveal>
+<span class="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block mb-3.5">TECH STACK</span>
+<!-- 4 x 3 Icons Grid -->
+<div class="grid grid-cols-4 gap-2.5">
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">React</span></div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">Next.js</span></div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">TypeScript</span></div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">Node.js</span></div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">Python</span></div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">Java</span></div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">MongoDB</span></div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">PostgreSQL</span></div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">Tailwind CSS</span></div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">Git</span></div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">Docker</span></div>
+<div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#081021] border border-blue-900/30 hover:border-cyan-500/40 transition-all hover:scale-105 group cursor-pointer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="" loading="lazy" width="28" height="28" class="w-7 h-7 mb-1.5 transition-transform group-hover:rotate-12"><span class="text-[11px] font-medium text-slate-300">Linux</span></div>
+</div>
+</div>
+<!-- Experience Timeline Section -->
+<div class="" id="experience" data-reveal><span class="text-[11px] font-bold uppercase tracking-wider text-cyan-400 block mb-4">EXPERIENCE</span><div class="space-y-4">
+<div class="flex items-center gap-3.5 group">
+<div class="w-9 h-9 rounded-full bg-[#07132a] border border-blue-500/40 flex items-center justify-center text-blue-400 shrink-0 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path d="M12 14v6.5"></path></svg></div>
+<div><h4 class="text-[13px] font-semibold text-white leading-tight">LPU – B.Tech CSE (3rd Year)</h4><p class="text-[11px] text-slate-400 mt-0.5">CGPA 7.7 • 2023 – Present</p></div>
+</div>
+<div class="flex items-center gap-3.5 group">
+<div class="w-9 h-9 rounded-full bg-[#051c24] border border-cyan-500/40 flex items-center justify-center text-cyan-400 shrink-0 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div>
+<div><h4 class="text-[13px] font-semibold text-white leading-tight">Coordinator – CODE STORM (36h)</h4><p class="text-[11px] text-slate-400 mt-0.5">LPU Tech Event • 2024</p></div>
+</div>
+<div class="flex items-center gap-3.5 group">
+<div class="w-9 h-9 rounded-full bg-[#07132a] border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg></div>
+<div><h4 class="text-[13px] font-semibold text-white leading-tight">Technical Head – Gravity Organisation</h4><p class="text-[11px] text-slate-400 mt-0.5">Led the technical team • Nov 2024</p></div>
+</div>
+<div class="flex items-center gap-3.5 group">
+<div class="w-9 h-9 rounded-full bg-[#051c24] border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></div>
+<div><h4 class="text-[13px] font-semibold text-white leading-tight">Event Management – Echo</h4><p class="text-[11px] text-slate-400 mt-0.5">LPU • 2023</p></div>
+</div>
+</div></div>
+</div>
+</div>
+</main>
+<!-- END: MainContentGrid -->
+<!-- BEGIN: Footer -->
+<footer class="w-full border-t border-slate-900/80 py-8 px-6 text-center text-xs text-slate-500">
+<div class="max-w-[1536px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="">
+        © 2026 Sri Narendra P. · Crafted with passion and clean code.
+      </div>
+<div class="flex items-center gap-6">
+<a class="hover:text-cyan-400 transition-colors" href="https://github.com/sri-narendra" rel="noopener noreferrer" target="_blank">GitHub</a>
+<a class="hover:text-cyan-400 transition-colors" href="https://www.linkedin.com/in/sri-narendra-p-2b75291bb/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+<a class="hover:text-cyan-400 transition-colors" href="mailto:srinarendraofficial@gmail.com">Email</a>
+<a class="hover:text-cyan-400 transition-colors" href="#home">Back to top ↑</a>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav a[href^="#"]'));
+  var underline = document.querySelector('.home-underline');
+  var visible = {}, picked = null, order = [];
+
+  links.forEach(function (a) {
+    var id = a.getAttribute('href').slice(1);
+    if (order.indexOf(id) < 0) order.push(id);
+    a.addEventListener('click', function () { picked = id; setActive(id); });
+  });
+
+  function setActive(id) {
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('nav-active', on);
+      a.classList.toggle('nav-bar', on && id !== 'home');
+    });
+    if (underline) underline.style.opacity = id === 'home' ? '1' : '0';
+  }
+
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) visible[e.target.id] = 1; else delete visible[e.target.id];
+      });
+      var hit = order.filter(function (i) { return visible[i]; });
+      if (!hit.length) return;
+      setActive(picked && visible[picked] ? picked : hit[0]);
+    }, { rootMargin: '-5% 0px -35% 0px' });
+    order.forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+  }
+
+  // Reveal: arm per-group stagger, then let each item in when it enters view
+  if (document.documentElement.classList.contains('js')) {
+    var counts = new Map();
+    var items = document.querySelectorAll('[data-reveal]');
+    items.forEach(function (el) {
+      var p = el.parentNode, n = counts.get(p) || 0;
+      counts.set(p, n + 1);
+      el.style.transitionDelay = (n * 70) + 'ms';
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    items.forEach(function (el) { io.observe(el); });
+  }
+})();
+
+// Live previews: render at desktop width, then scale to fit each card.
+document.querySelectorAll('.preview').forEach(function (w) {
+  var f = w.querySelector('iframe');
+  if (!f) return;
+  var fit = function () {
+    var k = w.clientWidth / 1280;
+    f.style.transform = 'scale(' + k + ')';
+    f.style.height = (w.clientHeight / k) + 'px';
+  };
+  fit();
+  if ('ResizeObserver' in window) new ResizeObserver(fit).observe(w);
+  else addEventListener('resize', fit);
+});
+
+// Theme toggle
+(function () {
+  var btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var light = document.documentElement.classList.toggle('light');
+    try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', light ? '#f6f7f9' : '#050811');
+    btn.setAttribute('aria-pressed', light ? 'true' : 'false');
+  });
+})();
+</script>
+</body></html>
